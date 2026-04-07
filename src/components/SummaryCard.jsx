@@ -1,0 +1,1 @@
+function SummaryCard({ title, value }) {  return (    <article className="panel p-4">      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{title}</p>      <h3 className="mt-2 font-display text-2xl font-semibold text-slate-900">{value}</h3>    </article>  );}export default SummaryCard;
