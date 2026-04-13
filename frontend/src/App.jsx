@@ -20,6 +20,7 @@ import ManageProductsPage from "./pages/admin/ManageProductsPage";
 import ManageOrdersPage from "./pages/admin/ManageOrdersPage";
 import ManagePrintRequestsPage from "./pages/admin/ManagePrintRequestsPage";
 import ManageUsersPage from "./pages/admin/ManageUsersPage";
+import ProfitManagementPage from "./pages/admin/ProfitManagementPage";
 
 function AppContent() {
   const location = useLocation();
@@ -138,6 +139,17 @@ function AppContent() {
               <AdminRoute>
                 <AdminLayout>
                   <ManageUsersPage />
+                </AdminLayout>
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/profit-management"
+            element={
+              <AdminRoute>
+                <AdminLayout>
+                  <ProfitManagementPage />
                 </AdminLayout>
               </AdminRoute>
             }

@@ -102,9 +102,9 @@ npm run dev
 
 ## Environment Variables
 
-| Variable | Required | Default | Description |
-| --- | --- | --- | --- |
-| `VITE_API_URL` | Yes | `http://localhost:5000` | Backend service origin. The app calls `${VITE_API_URL}/api/...`. |
+| Variable       | Required | Default                 | Description                                                      |
+| -------------- | -------- | ----------------------- | ---------------------------------------------------------------- |
+| `VITE_API_URL` | Yes      | `http://localhost:5000` | Backend service origin. The app calls `${VITE_API_URL}/api/...`. |
 
 ## Available Scripts
 

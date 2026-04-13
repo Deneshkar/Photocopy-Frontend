@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   HiOutlineArrowRightOnRectangle,
+  HiOutlineBanknotes,
   HiOutlineChartBar,
   HiOutlineClipboardDocumentList,
   HiOutlineDocumentDuplicate,
@@ -26,6 +27,11 @@ function AdminSidebar() {
       to: "/admin/print-requests",
       label: "Print Requests",
       icon: HiOutlineDocumentDuplicate,
+    },
+    {
+      to: "/admin/profit-management",
+      label: "Profit Management",
+      icon: HiOutlineBanknotes,
     },
     { to: "/admin/users", label: "Users", icon: HiOutlineUsers },
   ];
@@ -68,8 +74,11 @@ function AdminSidebar() {
         </nav>
       </div>
 
-      <button onClick={handleLogout} className="mt-6 w-full gap-1.5 rounded-lg border border-dark-600 bg-dark-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-dark-600">
-        <HiOutlineArrowRightOnRectangle className="h-4 w-4" />
+      <button
+        onClick={handleLogout}
+        className="group mt-6 flex w-full items-center justify-center gap-2 rounded-xl border border-dark-600 bg-dark-700 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-red-300/30 hover:bg-dark-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300/40"
+      >
+        <HiOutlineArrowRightOnRectangle className="h-4 w-4 text-dark-300 transition group-hover:text-white" />
         Logout
       </button>
     </aside>
