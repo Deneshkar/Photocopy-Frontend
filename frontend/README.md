@@ -1,34 +1,52 @@
 # Photocopy Shop Frontend
 
-Frontend application for the Sahana Photocopy shop. This project provides the customer storefront and the admin dashboard for stationery sales, print requests, and order management.
+Frontend application for the Sahana Photocopy Shop. This project includes the public storefront and a role-based admin dashboard for managing products, orders, print requests, and users.
 
-## Overview
+## Table of Contents
 
-The app is built with React and Vite and talks to a backend API over HTTP. It supports three main user experiences:
+- [About](#about)
+- [Core Features](#core-features)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Requirements](#requirements)
+- [Quick Start](#quick-start)
+- [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+- [API Expectations](#api-expectations)
+- [Business Rules and Limits](#business-rules-and-limits)
+- [Deployment Notes](#deployment-notes)
+- [Quality Status](#quality-status)
 
-- Guests can browse the catalog and create an account.
-- Customers can place stationery orders, submit print requests, and track their own activity.
-- Admins can manage products, orders, print requests, users, and dashboard reporting.
+## About
 
-## Features
+The frontend is built with React + Vite and communicates with a backend REST API over HTTP.
 
-### Customer Features
+It serves three user roles:
 
-- User registration and login
-- Product listing with search, category, and availability filters
-- Shopping cart with quantity controls and checkout form
-- Print request submission with file upload, paper size, print type, and copy settings
+- Guests: browse products and register an account.
+- Customers: place stationery orders, submit print requests, and track their own activity.
+- Admins: monitor operational health and manage catalog, orders, print requests, and users.
+
+## Core Features
+
+### Customer Experience
+
+- Authentication (register, login, protected pages)
+- Product catalog browsing with filters and search
+- Shopping cart management with quantity updates
+- Checkout and order creation flow
+- Print request submission with file upload and job options
 - Personal order history and print request tracking
 
-### Admin Features
+### Admin Experience
 
-- Dashboard summary cards and charts for orders, print requests, revenue, and stock health
-- Product create, update, delete, and filter flows
-- Order status management
-- Print request status management
-- User listing, role updates, and deletion
+- Dashboard insights (orders, print requests, revenue, stock)
+- Product CRUD and stock visibility controls
+- Order status lifecycle updates
+- Print request status lifecycle updates
+- User management with role updates and deletion
 
-## Tech Stack
+## Technology Stack
 
 - React 19
 - Vite 8
@@ -45,26 +63,61 @@ The app is built with React and Vite and talks to a backend API over HTTP. It su
 
 ```text
 src/
-  components/   Shared UI and admin tables/forms
-  context/      Authentication and cart state
-  pages/        Customer pages and admin pages
-  services/     API client and tests
-public/         Static assets
+  components/     Reusable UI + admin tables/forms/layout
+  context/        Global auth/cart state management
+  pages/          Customer and admin route pages
+  services/       API client wrappers and service tests
+  assets/         Static frontend assets
+  utils/          Helper utilities
+public/           Static public files
 ```
 
-## API Configuration
+## Requirements
 
-The frontend expects a backend API and uses `VITE_API_URL` as the base origin.
+- Node.js 20+
+- npm 10+
+- Running backend API compatible with the endpoints listed below
 
-Default fallback:
+## Quick Start
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create environment file:
 
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-The Axios client sends requests to `${VITE_API_URL}/api` and automatically attaches the saved auth token from `localStorage` when available.
+3. Start development server:
 
-The backend should expose endpoints for:
+```bash
+npm run dev
+```
+
+4. Open the URL printed by Vite (typically `http://localhost:5173`).
+
+## Environment Variables
+
+| Variable | Required | Default | Description |
+| --- | --- | --- | --- |
+| `VITE_API_URL` | Yes | `http://localhost:5000` | Backend service origin. The app calls `${VITE_API_URL}/api/...`. |
+
+## Available Scripts
+
+- `npm run dev` - Start Vite development server
+- `npm run build` - Build production assets into `dist/`
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint checks
+- `npm run test` - Run Vitest suite
+- `npm run check` - Run lint + test + build sequentially
+
+## API Expectations
+
+The frontend expects these backend route groups:
 
 - `/api/auth`
 - `/api/products`
@@ -73,54 +126,25 @@ The backend should expose endpoints for:
 - `/api/users`
 - `/api/dashboard`
 
-## Getting Started
+The API client automatically attaches an auth token from `localStorage` when present.
 
-### Prerequisites
+## Business Rules and Limits
 
-- Node.js 20 or newer
-- npm
-- A running backend API compatible with the routes above
+- Session/auth state is persisted in `localStorage`.
+- Cart state is persisted in `localStorage`.
+- Accepted print upload file types: `PDF`, `DOC`, `DOCX`, `PNG`, `JPG`, `JPEG`.
+- Maximum print upload size: 10 MB.
+- Admin pages are under `/admin/*` and are hidden from public navigation.
 
-### Installation
+## Deployment Notes
 
-```bash
-npm install
-```
+- Run `npm run build` before deployment to generate `dist/`.
+- Deploy static files from `dist/` to your hosting provider.
+- Ensure `VITE_API_URL` points to the correct backend for each environment.
 
-### Environment Setup
+## Quality Status
 
-Create a `.env` file in the project root:
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
-### Run in Development
-
-```bash
-npm run dev
-```
-
-The Vite development server will print the local URL in the terminal.
-
-## Scripts
-
-- `npm run dev` starts the Vite dev server
-- `npm run build` creates a production build in `dist/`
-- `npm run preview` serves the production build locally
-- `npm run lint` runs ESLint
-- `npm run test` runs Vitest
-- `npm run check` runs lint, tests, and production build in sequence
-
-## Notes
-
-- Authentication state and cart contents are stored in `localStorage`.
-- Print request uploads accept `PDF`, `DOC`, `DOCX`, `PNG`, `JPG`, and `JPEG` files up to 10 MB.
-- Admin routes live under `/admin/*` and are hidden from the public navigation.
-
-## Status
-
-The current frontend passes:
+Current expected health checks:
 
 - `npm run lint`
 - `npm run test`
